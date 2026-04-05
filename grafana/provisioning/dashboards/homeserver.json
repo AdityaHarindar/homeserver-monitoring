@@ -1169,8 +1169,7 @@
           "instant": true
         }
       ]
-    }
-  ],
+    },
     {
       "collapsed": false,
       "gridPos": { "h": 1, "w": 24, "x": 0, "y": 91 },
@@ -1525,6 +1524,203 @@
           "datasource": { "type": "prometheus", "uid": "prometheus" },
           "expr": "nvidia_smi_enforced_power_limit_watts",
           "legendFormat": "Cap (W)"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 112 },
+      "id": 108,
+      "title": "Temperatures",
+      "type": "row"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": { "lineWidth": 2, "fillOpacity": 8 },
+          "unit": "celsius",
+          "min": 20
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 9, "w": 12, "x": 0, "y": 113 },
+      "id": 80,
+      "options": {
+        "legend": { "calcs": ["mean", "max"], "displayMode": "table", "placement": "right" },
+        "tooltip": { "mode": "multi" }
+      },
+      "title": "CPU Temperatures",
+      "type": "timeseries",
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "node_hwmon_temp_celsius{chip=\"platform_coretemp_0\", sensor=\"temp1\"}",
+          "legendFormat": "Package"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "node_hwmon_temp_celsius{chip=\"platform_coretemp_0\", sensor=\"temp2\"}",
+          "legendFormat": "Core 0"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "node_hwmon_temp_celsius{chip=\"platform_coretemp_0\", sensor=\"temp3\"}",
+          "legendFormat": "Core 1"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "node_hwmon_temp_celsius{chip=\"platform_coretemp_0\", sensor=\"temp4\"}",
+          "legendFormat": "Core 2"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "node_hwmon_temp_celsius{chip=\"platform_coretemp_0\", sensor=\"temp5\"}",
+          "legendFormat": "Core 3"
+        }
+      ]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": { "lineWidth": 2, "fillOpacity": 8 },
+          "unit": "celsius",
+          "min": 20
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 9, "w": 12, "x": 12, "y": 113 },
+      "id": 81,
+      "options": {
+        "legend": { "calcs": ["mean", "max"], "displayMode": "table", "placement": "right" },
+        "tooltip": { "mode": "multi" }
+      },
+      "title": "GPU, NVMe & Chipset Temperatures",
+      "type": "timeseries",
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "nvidia_smi_temperature_gpu",
+          "legendFormat": "GPU (GTX 1060)"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "node_hwmon_temp_celsius{chip=\"nvme_nvme0\", sensor=\"temp1\"}",
+          "legendFormat": "NVMe Composite"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "node_hwmon_temp_celsius{chip=\"thermal_thermal_zone2\", sensor=\"temp0\"}",
+          "legendFormat": "PCH / Chipset"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "node_hwmon_temp_celsius{chip=\"thermal_thermal_zone0\", sensor=\"temp0\"}",
+          "legendFormat": "ACPI / Ambient"
+        }
+      ]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": { "lineWidth": 2, "fillOpacity": 8 },
+          "unit": "celsius",
+          "min": 20
+        },
+        "overrides": [
+          {
+            "matcher": { "id": "byFrameRefID", "options": "A" },
+            "properties": [{ "id": "color", "value": { "fixedColor": "red", "mode": "fixed" } }]
+          }
+        ]
+      },
+      "gridPos": { "h": 9, "w": 24, "x": 0, "y": 122 },
+      "id": 82,
+      "options": {
+        "legend": { "calcs": ["mean", "max"], "displayMode": "table", "placement": "right" },
+        "tooltip": { "mode": "multi" }
+      },
+      "title": "Drive Temperatures (SMART)",
+      "type": "timeseries",
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "smartctl_device_temperature{temperature_type=\"current\"}",
+          "legendFormat": "{{device}} (current)"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "smartctl_device_temperature{temperature_type=\"drive_trip\"}",
+          "legendFormat": "{{device}} (trip limit)"
+        }
+      ]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [],
+          "max": 100,
+          "min": 20,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 50 },
+              { "color": "orange", "value": 60 },
+              { "color": "red", "value": 70 }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 6, "w": 6, "x": 0, "y": 131 },
+      "id": 83,
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "horizontal",
+        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "showUnfilled": true
+      },
+      "title": "Current Temps — All Components",
+      "type": "bargauge",
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "node_hwmon_temp_celsius{chip=\"platform_coretemp_0\", sensor=\"temp1\"}",
+          "legendFormat": "CPU Package",
+          "instant": true
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "nvidia_smi_temperature_gpu",
+          "legendFormat": "GPU",
+          "instant": true
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "node_hwmon_temp_celsius{chip=\"nvme_nvme0\", sensor=\"temp1\"}",
+          "legendFormat": "NVMe SSD",
+          "instant": true
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "node_hwmon_temp_celsius{chip=\"thermal_thermal_zone2\", sensor=\"temp0\"}",
+          "legendFormat": "PCH",
+          "instant": true
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "smartctl_device_temperature{temperature_type=\"current\"}",
+          "legendFormat": "{{device}}",
+          "instant": true
         }
       ]
     }

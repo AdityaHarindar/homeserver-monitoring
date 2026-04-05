@@ -81,6 +81,17 @@ services:
       - monitoring
     restart: unless-stopped
 
+  smartctl-exporter:
+    image: prometheuscommunity/smartctl-exporter:latest
+    container_name: smartctl-exporter
+    privileged: true
+    user: root
+    volumes:
+      - /dev:/dev
+    networks:
+      - monitoring
+    restart: unless-stopped
+
   nvidia-exporter:
     image: utkuozdemir/nvidia_gpu_exporter:1.2.0
     container_name: nvidia-exporter
