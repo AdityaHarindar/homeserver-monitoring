@@ -441,7 +441,7 @@
       "targets": [
         {
           "datasource": { "type": "prometheus", "uid": "prometheus" },
-          "expr": "100 * (1 - node_filesystem_avail_bytes{mountpoint=\"/host/root/media/aditya/MEDIA\"} / node_filesystem_size_bytes{mountpoint=\"/host/root/media/aditya/MEDIA\"})",
+          "expr": "100 * (1 - node_filesystem_avail_bytes{mountpoint=\"/media/aditya/MEDIA\"} / node_filesystem_size_bytes{mountpoint=\"/media/aditya/MEDIA\"})",
           "legendFormat": "MEDIA"
         }
       ]
@@ -474,7 +474,7 @@
       "targets": [
         {
           "datasource": { "type": "prometheus", "uid": "prometheus" },
-          "expr": "100 * (1 - node_filesystem_avail_bytes{mountpoint=\"/host/root/media/aditya/MEDIA2\"} / node_filesystem_size_bytes{mountpoint=\"/host/root/media/aditya/MEDIA2\"})",
+          "expr": "100 * (1 - node_filesystem_avail_bytes{mountpoint=\"/media/aditya/MEDIA2\"} / node_filesystem_size_bytes{mountpoint=\"/media/aditya/MEDIA2\"})",
           "legendFormat": "MEDIA2"
         }
       ]
@@ -507,7 +507,7 @@
       "targets": [
         {
           "datasource": { "type": "prometheus", "uid": "prometheus" },
-          "expr": "100 * (1 - node_filesystem_avail_bytes{mountpoint=\"/host/root/media/aditya/MEDIA3\"} / node_filesystem_size_bytes{mountpoint=\"/host/root/media/aditya/MEDIA3\"})",
+          "expr": "100 * (1 - node_filesystem_avail_bytes{mountpoint=\"/media/aditya/MEDIA3\"} / node_filesystem_size_bytes{mountpoint=\"/media/aditya/MEDIA3\"})",
           "legendFormat": "MEDIA3"
         }
       ]
@@ -540,7 +540,7 @@
       "targets": [
         {
           "datasource": { "type": "prometheus", "uid": "prometheus" },
-          "expr": "100 * (1 - node_filesystem_avail_bytes{mountpoint=\"/host/root/mnt/plex\"} / node_filesystem_size_bytes{mountpoint=\"/host/root/mnt/plex\"})",
+          "expr": "100 * (1 - node_filesystem_avail_bytes{mountpoint=\"/mnt/plex\"} / node_filesystem_size_bytes{mountpoint=\"/mnt/plex\"})",
           "legendFormat": "/mnt/plex"
         }
       ]
@@ -568,7 +568,7 @@
       "targets": [
         {
           "datasource": { "type": "prometheus", "uid": "prometheus" },
-          "expr": "node_filesystem_avail_bytes{mountpoint=~\"/host/root/media.*|/host/root/mnt/plex|/host/root$\", fstype!~\"tmpfs|devtmpfs\"}",
+          "expr": "node_filesystem_avail_bytes{mountpoint=~\"/media.*|/mnt/plex|/\", fstype!~\"tmpfs|devtmpfs\"}",
           "legendFormat": "{{mountpoint}}"
         }
       ]
